@@ -8,7 +8,7 @@ services:
   cpu:
     build:
       context: .
-      dockerfile: .docker/Dockerfile
+      dockerfile: Dockerfile
     image: interbotixrosmanipulators:humble
     container_name: moveit2_container
     privileged: true
@@ -23,7 +23,7 @@ services:
   gpu:
     build:
       context: .
-      dockerfile: .docker/Dockerfile
+      dockerfile: Dockerfile
     image: interbotixrosmanipulators:humble
     container_name: moveit2_container
     runtime: nvidia
