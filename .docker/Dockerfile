@@ -26,6 +26,10 @@ RUN chmod +x /entrypoint.sh
 WORKDIR /root/interbotix_ws
 RUN colcon build
 
+# Set environment variables
+ENV GAZEBO_MODEL_URI=''
+ENV GAZEBO_MODEL_DATABASE_URI=''
+ENV GAZEBO_RESOURCE_PATH=/usr/share/gazebo-11:/usr/share/gazebo-11/media:/usr/share/gazebo-11/models:/root/.gazebo/models
 
 # Set default command
 CMD ["bash"]
