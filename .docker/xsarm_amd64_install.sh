@@ -214,7 +214,7 @@ function install_ros1() {
   else
     cd "$INSTALL_PATH"/src
     git clone -b "$ROS_DISTRO_TO_INSTALL" https://github.com/Interbotix/interbotix_ros_core.git
-    git clone -b "$ROS_DISTRO_TO_INSTALL" https://github.com/Interbotix/interbotix_ros_manipulators.git
+    git clone -b "$ROS_DISTRO_TO_INSTALL" https://github.com/HDElectronics/interbotix_ros_manipulators.git
     git clone -b "$ROS_DISTRO_TO_INSTALL" https://github.com/Interbotix/interbotix_ros_toolboxes.git
     rm                                                                                              \
       interbotix_ros_core/interbotix_ros_xseries/CATKIN_IGNORE                                      \
