@@ -31,6 +31,10 @@ ENV GAZEBO_MODEL_URI=''
 ENV GAZEBO_MODEL_DATABASE_URI=''
 ENV GAZEBO_RESOURCE_PATH=/usr/share/gazebo-11:/usr/share/gazebo-11/media:/usr/share/gazebo-11/models:/root/.gazebo/models
 
+# Download gazebo models and move the to #HOME/.gazebo/models
+RUN git clone https://github.com/osrf/gazebo_models.git /root/gazebo_models
+RUN mv /root/gazebo_models/* /root/.gazebo/models/
+
 # Set default command
 CMD ["bash"]
 
