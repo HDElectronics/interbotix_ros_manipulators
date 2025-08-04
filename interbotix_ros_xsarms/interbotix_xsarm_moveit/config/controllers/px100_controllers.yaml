@@ -18,3 +18,4 @@ controller_names:
   default: true
   joints:
     - left_finger
+    - right_finger
