@@ -6,6 +6,9 @@
 
 services:
   cpu:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
     image: interbotixrosmanipulators:humble
     container_name: moveit2_container
     privileged: true
@@ -18,6 +21,9 @@ services:
       QT_X11_NO_MITSHM: 1
       DISPLAY: $DISPLAY
   gpu:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
     image: interbotixrosmanipulators:humble
     container_name: moveit2_container
     runtime: nvidia
