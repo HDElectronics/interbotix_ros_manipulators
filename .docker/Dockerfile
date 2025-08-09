@@ -36,6 +36,37 @@ RUN git clone https://github.com/osrf/gazebo_models.git /root/gazebo_models
 RUN mkdir -p /root/.gazebo/models
 RUN mv /root/gazebo_models/* /root/.gazebo/models/
 
+# Uninstall any existing moveit packages
+RUN apt remove ros-$ROS_DISTRO-moveit* -y
+
+# Clone the moveit2 humble branch noveit_py porting
+WORKDIR /root/interbotix_ws/src
+RUN git clone -b pr-humble-python-bindings https://github.com/CNR-STIIMA-IRAS/moveit2.git
+
+# Install moveit2 from source
+RUN for repo in moveit2/moveit2.repos $(f="moveit2/moveit2_$ROS_DISTRO.repos"; test -r $f && echo $f); do vcs import < "$repo"; done
+RUN rosdep install -r --from-paths . --ignore-src --rosdistro $ROS_DISTRO -y
+WORKDIR /root/interbotix_ws
+
+# Install build dependencies for moveit2
+RUN apt update && apt install -y build-essential cmake git python3-colcon-common-extensions \
+    python3-flake8 python3-rosdep python3-setuptools python3-vcstool wget ros-humble-ament-cmake
+
+RUN apt update
+RUN apt dist-upgrade -y
+RUN rosdep update
+
+# Rebuild the workspace with the moveit2 fork
+RUN bash -c "source /opt/ros/humble/setup.bash && colcon build \
+    --cmake-args -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_TESTING=OFF \
+    --parallel-workers 2 \
+    --cmake-clean-cache"
+
+# Place the paths of the interbotix resources before the panda resources
+RUN echo 'export AMENT_PREFIX_PATH=/root/interbotix_ws/install:$AMENT_PREFIX_PATH' >> /root/.bashrc
+RUN echo 'export CMAKE_PREFIX_PATH=/root/interbotix_ws/install:$CMAKE_PREFIX_PATH' >> /root/.bashrc
+
 # Set default command
 CMD ["bash"]
 
