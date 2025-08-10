@@ -24,7 +24,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: interbotixrosmanipulators:humble
+    image: interbotixrosmanipulators-moveitpy:humble
     container_name: moveit2_container
     runtime: nvidia
     privileged: true
