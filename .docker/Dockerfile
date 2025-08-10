@@ -62,6 +62,7 @@ RUN bash -c "source /opt/ros/humble/setup.bash && colcon build \
     -DBUILD_TESTING=OFF \
     --parallel-workers 2 \
     --cmake-clean-cache"
+# Remark: to build in debug mode, use DCMAKE_BUILD_TYPE=RelWithDebInfo instead of Release
 
 # Place the paths of the interbotix resources before the panda resources
 RUN echo 'export AMENT_PREFIX_PATH=/root/interbotix_ws/install:$AMENT_PREFIX_PATH' >> /root/.bashrc
